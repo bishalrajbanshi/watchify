@@ -1,11 +1,13 @@
 import apiError from "../utils/apiError.js"
 const errorMiddleware = (err,req,res,next) => {
-     // If it's an instance of ApiError, send the formatted response
+
+
+     // If it an instance of ApiError, send the formatted response
 
      if(err instanceof apiError){
         return res.status(err.statusCode)
         .json({
-            success: err.succes,
+            success: err.success,
             statusCode: err.statusCode,
             message: err.message,
             errors: err.errors || [],

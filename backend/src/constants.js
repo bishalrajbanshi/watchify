@@ -1,13 +1,16 @@
-import { config as configDotenv } from 'dotenv';
-configDotenv()
+import { config as configDotenv } from "dotenv";
+configDotenv();
 const USERNAME = process.env.USERNAME;
 const DATABASENAME = process.env.DATABASENAME;
 const PASSWORD = process.env.PASSWORD;
 const PORT = process.env.PORT;
-console.log(USERNAME,DATABASENAME,PASSWORD);
 
+const ACCESSTOKENSECRET = process.env.ACCESSTOKENSECRET;
+const ACCESSTOKENEXPIRY = process.env.ACCESSTOKENEXPIRY;
 
-export {
-    USERNAME,
-    PASSWORD,DATABASENAME,PORT
-}
+const REFRESHTOKENSECRET = process.env.REFRESHTOKENSECRET;
+const REFRESHTOKENEXPITY = process.env.REFRESHTOKENEXPITY;
+
+console.log(USERNAME, DATABASENAME, PASSWORD);
+
+export { USERNAME, PASSWORD, DATABASENAME, PORT, ACCESSTOKENSECRET,ACCESSTOKENEXPIRY, REFRESHTOKENSECRET, REFRESHTOKENEXPITY };

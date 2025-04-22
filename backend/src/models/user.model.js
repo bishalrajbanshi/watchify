@@ -1,6 +1,6 @@
-import { sequelize } from "../config/dbconnection";
+import { sequelize } from "../config/dbconnection.js";
 import  DataTypes  from "sequelize";
-import nanoid from 'nanoid';
+import {nanoid} from "nanoid";
 
 const User = sequelize.define(
     'User',
@@ -23,9 +23,8 @@ const User = sequelize.define(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {
-                len: [5,10],
-                msg: "Password must be between 5 and 10 characters"
+            set(value){
+                this.setDataValue('password',value.trim())
             }
         },
         role: {

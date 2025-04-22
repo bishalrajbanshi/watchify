@@ -1,5 +1,4 @@
 import { Sequelize } from 'sequelize'
-import { DATABASENAME,PASSWORD,USERNAME } from "../constants.js";
 
 /**create connection */
 
@@ -12,6 +11,7 @@ const sequelize = new Sequelize("watchify","root","bishal",{
 async function connectDb() {
     try {
         await sequelize.authenticate();
+        // await sequelize.sync({alter:true});
         console.log("DATABASE CONNECTED");
     } catch (error) {
         console.error("DATABASE CONNECTION ERROR", error);
@@ -27,6 +27,7 @@ async function shutdown (){
         console.log("Database Terminated");
     } catch (error) {
         console.error("Error terminating databse",error);
+        process.exit(1)
     }
   
 }

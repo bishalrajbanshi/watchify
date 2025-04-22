@@ -11,7 +11,7 @@ connectDb()
         server.listen(PORT,() => {
             console.log(`server is listenning to the port ${PORT}`);
         })
-        handelShutDown(server);
+        handelShutDown();
 })
 .catch((error) => {
     console.error(`server connection error ${error}`);

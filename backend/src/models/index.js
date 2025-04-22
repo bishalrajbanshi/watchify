@@ -1,16 +1,10 @@
 import User from "./user.model.js";
+import Channel from "./channel.model.js";
+
 
 const db = {};
 
 db.user= User;
-
+db.channel= Channel;
 
 export default db;
-
-echo "# watchify" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/bishalrajbanshi/watchify.git
-git push -u origin main
