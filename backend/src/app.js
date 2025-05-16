@@ -1,52 +1,61 @@
 import express, { json, urlencoded } from "express";
 import errorMiddleware from "./middlewares/error.middleware.js";
 import cors from 'cors';
-import coolkieParser from 'cookie-parser';
-import helmate from "helmet";
-// import rateLimit from "express-rate-limit";
+import cookieParser from 'cookie-parser';
+import helmet from "helmet"; 
 import morgan from "morgan";
+import status from "express-status-monitor"
+
 
 const app = express();
-app.use(morgan(' '));
 
-/** CORS config */
+// Logger
+app.use(morgan('dev'));
+
+// CORS config
 app.use(cors({
-    origin: '*',
-    credentials: true
+  origin: '*',
+  credentials: true
 }));
 
-/** Limiting the JSON payload size */
-app.use(json({
-    limit: "20kb"
-}));
+// JSON payload size limit
+app.use(json({ limit: "20kb" }));
 
-/** Form data parsing */
-app.use(urlencoded({
-    extended: true
-}));
+// Form data
+app.use(urlencoded({ extended: true }));
 
-/** Public assets */
+// Public assets
 app.use(express.static("public"));
 
-/** Cookies */
-app.use(coolkieParser());
+// Cookies
+app.use(cookieParser());
 
-/** Helmet for protection against XSS, clickjacking, etc. */
-app.use(helmate());
+// Helmet for security headers
+app.use(helmet());
 
-/** Rate limiting (if you want to use it) */
-// const limiter = rateLimit({
-//     windowMs: 5 * 60 * 1000,
-//     max: 40,
-//     message: "Too many requests"
-// });
-// app.use(limiter);
 
-// Routes
+//**rest api */
 import userroute from './routes/user.route.js';
-app.use("/api/v1/user", userroute);
+import channelroute from './routes/channel.route.js';
+import videoroute  from "./routes/video.route.js";
+import likeroute from "./routes/like.route.js";
+import commentroute from "./routes/comment.route.js";
+import tweetroute from "./routes/tweet.route.js"
 
-/** Global error handler */
-app.use(errorMiddleware);
+  /** REST routes  */
+  app.use("/api/v1/user", userroute);
+  app.use("/api/v1/channel", channelroute);
+  app.use("/api/v1/video",videoroute);
+  app.use("/api/v1/like",likeroute);
+  app.use("/api/v1/comment",commentroute);
+  app.use("/api/v1/tweet",tweetroute);
+
+  /** Global error handler */
+  app.use(errorMiddleware);
+
+
+
+
+
 
 export default app;

@@ -1,7 +1,7 @@
-import app from "./app.js";
 import { connectDb, handelShutDown } from "./config/dbconnection.js";
 import http from 'http';
 import { PORT } from "./constants.js";
+import app from "./app.js"
 
 /**create server */
 const server = http.createServer(app)

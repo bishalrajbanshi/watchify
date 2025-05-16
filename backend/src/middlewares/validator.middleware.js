@@ -30,4 +30,44 @@ const userLoginValidator = [
     .withMessage("Password is required")
 ]
 
-export  {userRegisterValidator,userLoginValidator}
+const createChnnelValidator = [
+    body('handel')
+    .notEmpty()
+    .trim()
+    .withMessage("Username is required"),
+]
+
+const videoUploadValidator = [
+    body('title')
+    .notEmpty()
+    .trim()
+    .withMessage("title is required"),
+
+
+    body('description')
+    .notEmpty()
+    .trim()
+    .withMessage("description is required"),
+
+
+    body('duration')
+    .notEmpty()
+    .trim()
+    .withMessage("duration is required")
+];
+
+const commentValidator = [
+  body('content')
+    .notEmpty()
+    .trim()
+    .withMessage("comment is required")
+];
+
+const tweetValidator = [
+    body('content')
+    .notEmpty()
+    .trim()
+    .withMessage("tweet is required")
+]
+
+export  {userRegisterValidator,userLoginValidator,createChnnelValidator,videoUploadValidator,commentValidator,tweetValidator}

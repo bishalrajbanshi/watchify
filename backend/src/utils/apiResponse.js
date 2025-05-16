@@ -1,6 +1,6 @@
 class apiresponse{ 
     constructor({
-        statusCode,
+        statusCode = 200,
         data,
         success= true,
         message ="success"

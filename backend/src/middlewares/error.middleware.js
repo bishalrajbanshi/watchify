@@ -1,21 +1,34 @@
-import apiError from "../utils/apiError.js"
-const errorMiddleware = (err,req,res,next) => {
+import apiError from "../utils/apiError.js";
 
+const errorMiddleware = (err, req, res, next) => {
+  // Handle Sequelize validation/unique constraint errors
+  if (
+    err.name === 'SequelizeValidationError' ||
+    err.name === 'SequelizeUniqueConstraintError'
+  ) {
 
-     // If it an instance of ApiError, send the formatted response
+    console.log("sequlize error",err);
+    
+    const messages = err.errors.map((error) => error.message);
 
-     if(err instanceof apiError){
-        return res.status(err.statusCode)
-        .json({
-            success: err.success,
-            statusCode: err.statusCode,
-            message: err.message,
-            errors: err.errors || [],
-            data: err.data
-        })
-     }
+    return res.status(400).json({
+      success: false,
+      statusCode: 400,
+      message: err.message,          
+      errors: messages               
+    });
+  }
 
-      // For unexpected errors, log them
+  // Handle custom apiError
+  if (err instanceof apiError) {
+    return res.status(err.statusCode).json({
+      success: err.success,
+      statusCode: err.statusCode,
+      message: err.message,
+      errors: err.errors || [],
+      data: err.data || null
+    });
+  }
   console.error(err.stack);
 
   return res.status(500).json({
@@ -25,6 +38,6 @@ const errorMiddleware = (err,req,res,next) => {
     errors: [],
     data: null,
   });
-}
+};
 
 export default errorMiddleware;
